@@ -1,0 +1,253 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilos gerais */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+  min-height: 100vh;
+  color: #333;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+  color: white;
+}
+
+.header h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.header p {
+  font-size: 1.2em;
+  opacity: 0.9;
+}
+
+/* Container principal */
+.todo-container {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Formulário */
+.todo-form {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+#todo-input {
+  flex: 1;
+  padding: 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+#todo-input:focus {
+  outline: none;
+  border-color: #74b9ff;
+}
+
+.todo-form button {
+  padding: 15px 25px;
+  background: #00b894;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.todo-form button:hover {
+  background: #00a085;
+}
+
+/* Lista de tarefas */
+.todos-container {
+  min-height: 200px;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  background: #f8f9fa;
+  transition: all 0.3s;
+}
+
+.todo-item:hover {
+  background: #e9ecef;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.todo-item.completed {
+  opacity: 0.6;
+  text-decoration: line-through;
+  background: #d4edda;
+}
+
+.todo-checkbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #00b894;
+}
+
+.todo-text {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.todo-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.todo-actions button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.edit-btn {
+  background: #fdcb6e;
+  color: white;
+}
+
+.edit-btn:hover {
+  background: #e17055;
+}
+
+.delete-btn {
+  background: #e84393;
+  color: white;
+}
+
+.delete-btn:hover {
+  background: #d63031;
+}
+
+/* Modo de edição */
+.todo-edit {
+  display: none;
+  flex: 1;
+}
+
+.todo-edit input {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #74b9ff;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.todo-edit.active {
+  display: block;
+}
+
+.todo-text.hidden {
+  display: none;
+}
+
+/* Mensagens */
+.message {
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px 0;
+  text-align: center;
+  font-weight: 500;
+  display: none;
+}
+
+.message.show {
+  display: block;
+}
+
+.message.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.message.info {
+  background: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}
+
+/* Estado vazio */
+.no-todos {
+  text-align: center;
+  color: #6c757d;
+  font-size: 18px;
+  padding: 40px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 2px dashed #dee2e6;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .container {
+    padding: 10px;
+  }
+
+  .todo-container {
+    padding: 20px;
+  }
+
+  .header h1 {
+    font-size: 2em;
+  }
+
+  .todo-form {
+    flex-direction: column;
+  }
+
+  .todo-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .todo-actions {
+    align-self: flex-end;
+  }
+}
