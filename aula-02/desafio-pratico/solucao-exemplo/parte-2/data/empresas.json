@@ -1,0 +1,27 @@
+[
+  {
+    "id": "1",
+    "nome": "Tech Solutions",
+    "funcionarios": 150
+  },
+  {
+    "id": "2",
+    "nome": "Digital Innovations",
+    "funcionarios": 87
+  },
+  {
+    "id": "3",
+    "nome": "Cloud Systems",
+    "funcionarios": 230
+  },
+  {
+    "id": "4",
+    "nome": "Web Dynamics",
+    "funcionarios": 45
+  },
+  {
+    "id": "5",
+    "nome": "Software House",
+    "funcionarios": 120
+  }
+]

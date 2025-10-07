@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gerenciador de Empresas - Full</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>🏢 Gerenciador de Empresas</h1>
+        <p>Sistema completo de gerenciamento</p>
+      </header>
+
+      <main>
+        <!-- Formulário para adicionar empresa -->
+        <div class="form-container">
+          <h2>➕ Nova Empresa</h2>
+          <form id="empresa-form">
+            <div class="form-group">
+              <label for="nome">Nome da Empresa</label>
+              <input
+                type="text"
+                id="nome"
+                placeholder="Digite o nome da empresa"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="funcionarios">Quantidade de Funcionários</label>
+              <input
+                type="number"
+                id="funcionarios"
+                placeholder="Digite a quantidade"
+                min="0"
+                required
+              />
+            </div>
+            <button type="submit">Adicionar Empresa</button>
+          </form>
+        </div>
+
+        <!-- Tabela de empresas -->
+        <div class="table-container">
+          <h2>📋 Lista de Empresas</h2>
+          <table class="empresas-table">
+            <thead>
+              <tr>
+                <th>Nome da Empresa</th>
+                <th>Funcionários</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="empresas-tbody">
+              <!-- Empresas serão inseridas aqui via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Mensagens -->
+        <div id="message" class="message"></div>
+      </main>
+
+      <footer>
+        <p>Desafio Prático - Parte 3 - Aula 02</p>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
