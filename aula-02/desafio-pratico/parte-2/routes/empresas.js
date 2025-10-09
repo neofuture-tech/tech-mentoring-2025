@@ -144,7 +144,7 @@ router.put("/:id", (req, res) => {
 
     fs.writeFileSync(DATA_PATH, JSON.stringify(empresaList));
 
-    res.status(200).json("Empresa atualizada com sucesso!");
+    res.status(200).json(empresaData);
 });
 
 router.delete("/:id", (req, res) => {
