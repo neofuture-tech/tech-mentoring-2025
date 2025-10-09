@@ -99,7 +99,7 @@ router.post("/", (req, res) => {
 router.put("/:id", (req, res) => {
     const body = req.body;
     const paramId = req.params.id
-    
+
     const empresa = new Empresa(body.nome, body.funcionarios);
 
     if (!empresa.isValid()) {
@@ -130,7 +130,26 @@ router.put("/:id", (req, res) => {
 
     fs.writeFileSync(DATA_PATH, JSON.stringify(empresaList));
 
-    res.status(201).json("Empresa atualizada com sucesso!");
+    res.status(200).json("Empresa atualizada com sucesso!");
 });
+
+router.delete("/:id", (req, res) => {
+    
+    const paramId = req.params.id
+
+    const empresaList = getDataEmpresas();
+    const empresaData = empresaList.find((e) => e.id == paramId)
+
+    if (!empresaData)
+    {
+        return res.status(404).json({ message: "Empresa não encontrada" });
+    }
+
+    const newEmpresaList = empresaList.filter(e => e.id !== empresaData.id)
+
+    fs.writeFileSync(DATA_PATH, JSON.stringify(newEmpresaList));
+
+    res.status(200).json("Empresa removida com sucesso!");
+})
 
 module.exports = router;
