@@ -95,4 +95,42 @@ router.post("/", (req, res) => {
     res.status(201).json("Empresa criada com sucesso!");
 });
 
+
+router.put("/:id", (req, res) => {
+    const body = req.body;
+    const paramId = req.params.id
+    
+    const empresa = new Empresa(body.nome, body.funcionarios);
+
+    if (!empresa.isValid()) {
+        return res.status(400).json({
+            message: "Dados inválidos!",
+            errors: empresa.errors(),
+        });
+    }
+
+    const empresaList = getDataEmpresas();
+    const empresaData = empresaList.find((e) => e.id == paramId)
+
+    if (!empresaData)
+    {
+        return res.status(404).json({ message: "Empresa não encontrada" });
+    }
+
+    if (
+        empresaList.find(
+            (e) => e.nome.toLowerCase() == empresa.nome.toLowerCase() && e.id != empresaData.id
+        )
+    ) {
+        return res.status(409).json({ message: "Empresa já cadastrada com outro Id" });
+    }
+
+    empresaData.nome = empresa.nome
+    empresaData.funcionarios = empresa.funcionarios
+
+    fs.writeFileSync(DATA_PATH, JSON.stringify(empresaList));
+
+    res.status(201).json("Empresa atualizada com sucesso!");
+});
+
 module.exports = router;
