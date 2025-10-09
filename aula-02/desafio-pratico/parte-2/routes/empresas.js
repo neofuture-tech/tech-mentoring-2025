@@ -107,9 +107,8 @@ router.post("/", (req, res) => {
 
     fs.writeFileSync(DATA_PATH, JSON.stringify(empresaList));
 
-    res.status(201).json("Empresa criada com sucesso!");
+    res.status(201).location(`${req.headers.host}/api/empresas/${empresa.id}`).json(empresa);
 });
-
 
 router.put("/:id", (req, res) => {
     const body = req.body;
