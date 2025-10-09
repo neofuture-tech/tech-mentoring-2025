@@ -59,6 +59,21 @@ router.get("/", (_req, res) => {
     return res.json(empresas);
 });
 
+router.get("/:id", (req, res) => {
+    const paramId = req.params.id
+
+    const empresaList = getDataEmpresas();
+
+    const empresaData = empresaList.find((e) => e.id == paramId)
+
+    if (!empresaData)
+    {
+        return res.status(404).json({ message: "Empresa não encontrada" });
+    }
+
+    res.status(200).json(empresaData);
+})
+
 router.post("/", (req, res) => {
     const body = req.body;
     const empresa = new Empresa(body.nome, body.funcionarios);
