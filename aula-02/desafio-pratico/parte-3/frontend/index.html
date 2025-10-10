@@ -25,17 +25,90 @@
     <body>
         <h1 class="title">Gerenciador de Empresas</h1>
         <main class="container">
+            <button class="btn new-enterprise" onclick="showNewEnterprise()">
+                Nova empresa
+            </button>
             <table cellspacing="0" cellpadding="0">
                 <thead>
                     <th>Nome da empresa</th>
                     <th>de funcionários</th>
                 </thead>
-                <tbody>
-                </tbody>
+                <tbody></tbody>
             </table>
-            <p class="container-footer">Desafio Aula 02 - Mikhael D'Amato
-                 ◉ <strong><a href="http://github.com/damatomos" target="_blank">@damatomos</a></strong>
+            <p class="container-footer">
+                Desafio Aula 02 - Mikhael D'Amato ◉
+                <strong
+                    ><a href="http://github.com/damatomos" target="_blank"
+                        >@damatomos</a
+                    ></strong
+                >
             </p>
         </main>
+        <div class="modal create-enterprise">
+            <div class="modal-overlay" onclick="closeModal(event)"></div>
+            <div class="modal-container">
+                <header class="modal-header">
+                    <h2 class="title">Nova empresa</h2>
+                    <button class="close" onclick="closeModal(event)">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            height="24"
+                            role="img"
+                            aria-label="Fechar"
+                        >
+                            <g
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path d="M18 6 L6 18" />
+                                <path d="M6 6 L18 18" />
+                            </g>
+                        </svg>
+                    </button>
+                </header>
+                <form>
+                    <div class="form-error">Empresa já cadastrada</div>
+                    <div class="input-field">
+                        <label for="nome"> Nome </label>
+                        <input
+                            type="text"
+                            name="nome"
+                            id="nome"
+                            placeholder="ex: Kahoot Brown"
+                        />
+                        <span class="error">O nome é obrigatório</span>
+                    </div>
+
+                    <div class="input-field">
+                        <label for="funcionarios"
+                            >Quantidade de funcionários</label
+                        >
+                        <input
+                            type="number"
+                            name="funcionarios"
+                            id="funcionarios"
+                            placeholder="250"
+                            min="0"
+                        />
+                        <span class="error"
+                            >A quantidade de funcionários deve ser maior que
+                            0</span
+                        >
+                    </div>
+                    <button
+                        type="button"
+                        onclick="modalSubmit(event)"
+                        class="btn modal-submit"
+                    >
+                        Cadastrar empresa
+                    </button>
+                </form>
+            </div>
+        </div>
     </body>
 </html>
