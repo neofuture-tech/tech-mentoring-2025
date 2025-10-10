@@ -149,6 +149,37 @@ tbody td {
     font-weight: 600;
 }
 
+.container tbody[data-loading="true"] tr:not(.loading-row) {
+    display: none;
+}
+
+.container tbody[data-loading="true"] .loading-row {
+    position: relative;
+    height: 120px;
+}
+
+.container tbody[data-loading="true"] .loading-row:hover {
+    background-color: initial;
+}
+
+.container tbody[data-loading="true"] .loading-row::after {
+    --spinner-size: 48px;
+
+    content: "";
+    position: absolute;
+
+    top: calc(50% - var(--spinner-size) / 2);
+    left: calc(50% - var(--spinner-size) / 2);
+    width: var(--spinner-size);
+    height: var(--spinner-size);
+
+    border: 5px solid var(--color-primary);
+    border-top-color: var(--color-secondary);
+    border-radius: 50%;
+
+    animation: spin 1s linear infinite;
+}
+
 .container-footer {
     color: white;
     text-align: center;
@@ -168,5 +199,14 @@ tbody td {
     .container table thead th:last-child::before {
         content: "Quant. ";
         display: inline;
+    }
+}
+
+
+/* ======== ANIMATIONS ======== */
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
     }
 }
