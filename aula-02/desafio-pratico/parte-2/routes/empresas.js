@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const fs = require("fs");
+const fs = require("fs").promises;
 
 const DATA_PATH = "./data/empresas.json";
 
@@ -43,38 +43,47 @@ class Empresa {
 /**
  * @returns {Empresa[]}
  */
-function getDataEmpresas() {
+async function getDataEmpresas() {
     let data = null;
 
-    if (fs.existsSync(DATA_PATH)) {
-        data = fs.readFileSync(DATA_PATH, "utf-8");
+    try {
+        data = await fs.readFile(DATA_PATH, "utf-8");
+        return data ? JSON.parse(data) : [];
+    } catch (_err) {
+        return [];
     }
-
-    return data ? JSON.parse(data) : [];
 }
 
-router.get("/", (_req, res) => {
-    const empresas = getDataEmpresas();
+async function saveDataEmpresas(empresas) {
+    try {
+        await fs.writeFile(DATA_PATH, JSON.stringify(empresas));
+        return true;
+    } catch (_err) {
+        return false;
+    }
+}
+
+router.get("/", async (_req, res) => {
+    const empresas = await getDataEmpresas();
 
     return res.json(empresas);
 });
 
-router.get("/:id", (req, res) => {
-    const paramId = req.params.id
+router.get("/:id", async (req, res) => {
+    const paramId = req.params.id;
 
-    const empresaList = getDataEmpresas();
+    const empresaList = await getDataEmpresas();
 
-    const empresaData = empresaList.find((e) => e.id == paramId)
+    const empresaData = empresaList.find((e) => e.id == paramId);
 
-    if (!empresaData)
-    {
+    if (!empresaData) {
         return res.status(404).json({ message: "Empresa não encontrada" });
     }
 
     res.status(200).json(empresaData);
-})
+});
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
     const body = req.body;
     const empresa = new Empresa(body.nome, body.funcionarios);
 
@@ -85,7 +94,7 @@ router.post("/", (req, res) => {
         });
     }
 
-    const empresaList = getDataEmpresas();
+    const empresaList = await getDataEmpresas();
 
     if (
         empresaList.find(
@@ -105,14 +114,20 @@ router.post("/", (req, res) => {
 
     empresaList.push(empresa);
 
-    fs.writeFileSync(DATA_PATH, JSON.stringify(empresaList));
+    const saved = await saveDataEmpresas(empresaList);
 
-    res.status(201).location(`${req.headers.host}/api/empresas/${empresa.id}`).json(empresa);
+    if (!saved) {
+        return res.status(500);
+    }
+
+    res.status(201)
+        .location(`${req.headers.host}/api/empresas/${empresa.id}`)
+        .json(empresa);
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", async (req, res) => {
     const body = req.body;
-    const paramId = req.params.id
+    const paramId = req.params.id;
 
     const empresa = new Empresa(body.nome, body.funcionarios);
 
@@ -123,47 +138,56 @@ router.put("/:id", (req, res) => {
         });
     }
 
-    const empresaList = getDataEmpresas();
-    const empresaData = empresaList.find((e) => e.id == paramId)
+    const empresaList = await getDataEmpresas();
+    const empresaData = empresaList.find((e) => e.id == paramId);
 
-    if (!empresaData)
-    {
+    if (!empresaData) {
         return res.status(404).json({ message: "Empresa não encontrada" });
     }
 
     if (
         empresaList.find(
-            (e) => e.nome.toLowerCase() == empresa.nome.toLowerCase() && e.id != empresaData.id
+            (e) =>
+                e.nome.toLowerCase() == empresa.nome.toLowerCase() &&
+                e.id != empresaData.id
         )
     ) {
-        return res.status(409).json({ message: "Empresa já cadastrada com outro Id" });
+        return res
+            .status(409)
+            .json({ message: "Empresa já cadastrada com outro Id" });
     }
 
-    empresaData.nome = empresa.nome
-    empresaData.funcionarios = empresa.funcionarios
+    empresaData.nome = empresa.nome;
+    empresaData.funcionarios = empresa.funcionarios;
 
-    fs.writeFileSync(DATA_PATH, JSON.stringify(empresaList));
+    const saved = await saveDataEmpresas(empresaList);
+
+    if (!saved) {
+        return res.status(500);
+    }
 
     res.status(200).json(empresaData);
 });
 
-router.delete("/:id", (req, res) => {
-    
-    const paramId = req.params.id
+router.delete("/:id", async (req, res) => {
+    const paramId = req.params.id;
 
-    const empresaList = getDataEmpresas();
-    const empresaData = empresaList.find((e) => e.id == paramId)
+    const empresaList = await getDataEmpresas();
+    const empresaData = empresaList.find((e) => e.id == paramId);
 
-    if (!empresaData)
-    {
+    if (!empresaData) {
         return res.status(404).json({ message: "Empresa não encontrada" });
     }
 
-    const newEmpresaList = empresaList.filter(e => e.id !== empresaData.id)
+    const newEmpresaList = empresaList.filter((e) => e.id !== empresaData.id);
 
-    fs.writeFileSync(DATA_PATH, JSON.stringify(newEmpresaList));
+    const saved = await saveDataEmpresas(newEmpresaList);
+
+    if (!saved) {
+        return res.status(500);
+    }
 
     res.status(200).json("Empresa removida com sucesso!");
-})
+});
 
 module.exports = router;
