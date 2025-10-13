@@ -14,6 +14,14 @@ const DELETE_BUTTON_ICON = `<!-- delete-outline.svg -->
 </svg>
 `;
 
+const CONFIRM_BUTTON_ICON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-label="Confirmar">
+  <title>Confirmar</title>
+  <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"/>
+    <path d="M9 12l2 2l4-4"/>
+  </g>
+</svg>`;
+
 var currentOpenedModal = null;
 
 /**
@@ -60,19 +68,28 @@ function createRow(id, nome, funcionarios) {
 
     const deleteButton = document.createElement("button");
     deleteButton.classList.add("delete-button");
-    deleteButton.type = "button"; 
+    deleteButton.type = "button";
     deleteButton.innerHTML = DELETE_BUTTON_ICON;
-    deleteButton.addEventListener("click", async () => {
-        console.log("deletar", id);
-        if (tableBody.dataset.loading == "true") return;
-        tableBody.dataset.loading = true;
-        const result = await api("DELETE", { path: `/${id}` });
-        if (result.status == 200) {
-            tableBody.querySelector(`tr[data-idx="${id}"]`).remove();
-        }
-        tableBody.dataset.loading = false;
-    });
     actionsTableData.appendChild(deleteButton);
+
+    deleteButton.appendChild(createConfirmDeleteRow(id));
+
+    deleteButton.addEventListener("click", (event) => {
+        const confirmDeleteRow =
+            deleteButton.querySelector(".popup-delete-row");
+        if (!confirmDeleteRow) return;
+
+        if (confirmDeleteRow.contains(event.target)) return;
+
+        confirmDeleteRow.toggleAttribute("data-opened");
+
+        document.addEventListener("click", function docListener(event) {
+            if (!deleteButton.contains(event.target)) {
+                confirmDeleteRow.removeAttribute("data-opened");
+                document.removeEventListener("click", docListener);
+            }
+        });
+    });
 
     nomeTableData.innerText = nome;
     funcionariosTableData.innerText = funcionarios;
@@ -84,6 +101,32 @@ function createRow(id, nome, funcionarios) {
     tableRow.dataset.idx = id;
 
     return tableRow;
+}
+
+function createConfirmDeleteRow(id) {
+    const popupDeleteRow = document.createElement("div");
+    popupDeleteRow.classList.add("popup-delete-row");
+
+    const popupButton = document.createElement("button");
+    popupButton.type = "button";
+    popupButton.innerHTML = "Confirmar";
+    popupButton.classList.add("btn");
+    popupButton.classList.add("popup-confirm");
+
+    popupButton.addEventListener("click", async () => {
+        console.log("deletar", id);
+        if (tableBody.dataset.loading == "true") return;
+        tableBody.dataset.loading = true;
+        const result = await api("DELETE", { path: `/${id}` });
+        if (result.status == 200) {
+            tableBody.querySelector(`tr[data-idx="${id}"]`).remove();
+        }
+        tableBody.dataset.loading = false;
+    });
+
+    popupDeleteRow.appendChild(popupButton);
+
+    return popupDeleteRow;
 }
 
 function createLoadingRow() {
@@ -192,7 +235,9 @@ async function modalSubmit(event) {
     if (result.status == 201) {
         const row = createRow(
             result.data.id,
-            result.data.nome, result.data.funcionarios)
+            result.data.nome,
+            result.data.funcionarios
+        );
         tableBody.appendChild(row);
         clearModalInputs(form.parentNode.parentNode);
         form.parentNode.parentNode.removeAttribute("data-opened");
