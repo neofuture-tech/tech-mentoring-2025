@@ -1,24 +1,41 @@
 const tableBody = document.querySelector(".container table tbody");
 const modalCreateEnterprise = document.querySelector(".create-enterprise");
 
+const DELETE_BUTTON_ICON = `<!-- delete-outline.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-label="Deletar item">
+  <title>Deletar item</title>
+  <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 6h18"/>
+    <path d="M8 6V4a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2"/>
+    <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6z"/>
+    <line x1="10" y1="11" x2="10" y2="17"/>
+    <line x1="14" y1="11" x2="14" y2="17"/>
+  </g>
+</svg>
+`;
+
 var currentOpenedModal = null;
 
 /**
  * @param { 'POST' | 'GET' | 'PUT' | 'DELETE' } method
- * @param { object | undefined } [body=undefined]
+ * @param { { body?: object | undefined, path?: string | undefined} } [options={}]
  */
-async function api(method, body = undefined) {
-    const options = {
+async function api(method, options = {}) {
+    const fetchOptions = {
         method,
-        body: body ? JSON.stringify(body) : "",
+        body: options.body ? JSON.stringify(options.body) : "",
         headers: {
             "Content-Type": "application/json",
         },
     };
 
-    if (!["POST", "PUT"].includes(method)) delete options.body;
+    if (!["POST", "PUT"].includes(method)) delete fetchOptions.body;
 
-    const result = await fetch("http://localhost:3000/api/empresas", options);
+    const path =
+        "http://localhost:3000/api/empresas" +
+        (options.path ? options.path : "");
+
+    const result = await fetch(path, fetchOptions);
     const data = await result.json();
 
     return {
@@ -33,22 +50,44 @@ async function api(method, body = undefined) {
  * @param {string} nome
  * @param {number} funcionarios
  */
-function createRow(nome, funcionarios) {
+function createRow(id, nome, funcionarios) {
     const tableRow = document.createElement("tr");
     const nomeTableData = document.createElement("td");
     const funcionariosTableData = document.createElement("td");
+    const actionsTableData = document.createElement("td");
+
+    actionsTableData.classList.add("actions");
+
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("delete-button");
+    deleteButton.type = "button"; 
+    deleteButton.innerHTML = DELETE_BUTTON_ICON;
+    deleteButton.addEventListener("click", async () => {
+        console.log("deletar", id);
+        if (tableBody.dataset.loading == "true") return;
+        tableBody.dataset.loading = true;
+        const result = await api("DELETE", { path: `/${id}` });
+        if (result.status == 200) {
+            tableBody.querySelector(`tr[data-idx="${id}"]`).remove();
+        }
+        tableBody.dataset.loading = false;
+    });
+    actionsTableData.appendChild(deleteButton);
 
     nomeTableData.innerText = nome;
     funcionariosTableData.innerText = funcionarios;
 
     tableRow.appendChild(nomeTableData);
     tableRow.appendChild(funcionariosTableData);
+    tableRow.appendChild(actionsTableData);
+
+    tableRow.dataset.idx = id;
 
     return tableRow;
 }
 
 function createLoadingRow() {
-    const row = createRow("", "");
+    const row = createRow("", "", "");
     row.classList.add("loading-row");
     tableBody.appendChild(row);
 }
@@ -62,7 +101,7 @@ async function loadTableRows() {
     if (empresaList) {
         empresaList.forEach((empresa) => {
             tableBody.appendChild(
-                createRow(empresa.nome, empresa.funcionarios)
+                createRow(empresa.id, empresa.nome, empresa.funcionarios)
             );
         });
     }
@@ -147,11 +186,14 @@ async function modalSubmit(event) {
     }
 
     const result = await api("POST", {
-        nome,
-        funcionarios,
+        body: { nome, funcionarios: Number(funcionarios) },
     });
 
     if (result.status == 201) {
+        const row = createRow(
+            result.data.id,
+            result.data.nome, result.data.funcionarios)
+        tableBody.appendChild(row);
         clearModalInputs(form.parentNode.parentNode);
         form.parentNode.parentNode.removeAttribute("data-opened");
     }

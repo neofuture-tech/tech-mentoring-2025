@@ -3,6 +3,8 @@
     --font-title: "Fjalla One", sans-serif;
     --font-body: "Noto Sans", sans-serif;
 
+    --color-red: #ff3c22;
+
     --color-text: #333;
     --color-divisor: #d1d1d1;
 
@@ -14,7 +16,7 @@
     --color-border-input: #e1e1e1;
     --color-border-hover: #333;
 
-    --color-error: #ff3c22;
+    --color-error: var(--color-red);
     --color-error-text: #5c160d;
     --color-error-soft: #ff3c2257;
 
@@ -125,18 +127,54 @@ input {
 }
 
 .container table {
+    min-width: 500px;
     width: 100%;
     background-color: white;
     padding: 1.5rem;
-    border-radius: 10px;
 
     box-shadow: 4px 4px 12px 0 rgba(0, 0, 0, 0.12);
     border-spacing: 0;
 }
 
+.container .table-container {
+    width: 100%;
+    overflow-x: auto;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.container .table-container .actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.container .table-container .delete-button {
+    padding: 0.25rem;
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 6px;
+
+    transition: 0.24s ease-in;
+
+    color: var(--color-button-close);
+}
+
+.container .table-container .delete-button:hover {
+    background-color: white;
+    color: var(--color-red);
+}
+
+
 /* ======== CONTAINER TABLE HEAD ======== */
 
 .container thead {
+    overflow-x: auto;
     background: linear-gradient(
         120deg,
         var(--color-primary) 30%,
@@ -157,7 +195,7 @@ tbody td {
     border-top-left-radius: 10px;
 }
 
-.container table thead th:last-child::before {
+.container table thead th:nth-child(2)::before {
     content: "Quantidade ";
     display: inline;
 }
@@ -168,6 +206,10 @@ tbody td {
 }
 
 /* ======== CONTAINER TABLE BODY ======== */
+
+.container tbody {
+    overflow-x: auto;
+}
 
 .container tbody td {
     color: var(--color-text);
@@ -382,10 +424,10 @@ body:has(.modal[data-opened]) {
     }
 
     .container table {
-        padding: 1rem;
+        overflow-x: auto;
     }
 
-    .container table thead th:last-child::before {
+    .container table thead th:nth-child(2)::before {
         content: "Quant. ";
         display: inline;
     }
