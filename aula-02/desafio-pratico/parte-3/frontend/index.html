@@ -24,6 +24,7 @@
     </head>
     <body>
         <h1 class="title">Gerenciador de Empresas</h1>
+        <!-- MAIN CONTAINER -->
         <main class="container">
             <button class="btn new-enterprise" onclick="showNewEnterprise()">
                 Nova empresa
@@ -47,6 +48,7 @@
                 >
             </p>
         </main>
+        <!-- CREATE ENTERPRISE MODAL -->
         <div class="modal create-enterprise">
             <div class="modal-overlay" onclick="closeModal(event)"></div>
             <div class="modal-container">
@@ -113,7 +115,7 @@
                 </form>
             </div>
         </div>
-
+        <!-- EDIT ENTERPRISE MODAL -->
         <div class="modal edit-enterprise">
             <div class="modal-overlay" onclick="closeModal(event)"></div>
             <div class="modal-container">
@@ -179,6 +181,9 @@
                     </button>
                 </form>
             </div>
+        </div>
+        <!-- NOTIFIES -->
+        <div class="notifies">
         </div>
     </body>
 </html>

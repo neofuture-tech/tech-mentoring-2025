@@ -1,6 +1,7 @@
 const tableBody = document.querySelector(".container table tbody");
 const modalCreateEnterprise = document.querySelector(".create-enterprise");
 const modalEditEnterprise = document.querySelector(".edit-enterprise");
+const notifiesContainer = document.querySelector(".notifies");
 
 const DELETE_BUTTON_ICON = `<!-- delete-outline.svg -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-label="Deletar item">
@@ -22,6 +23,26 @@ const EDIT_BUTTON_ICON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2
     <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1l1-4L16.5 3.5z"/>
   </g>
 </svg>`;
+
+const CLOSE_BUTTON_ICON = `<svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            height="24"
+                            role="img"
+                            aria-label="Fechar"
+                        >
+                            <g
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path d="M18 6 L6 18" />
+                                <path d="M6 6 L18 18" />
+                            </g>
+                        </svg>`;
 
 var currentOpenedModal = null;
 
@@ -77,7 +98,8 @@ function createRow(id, nome, funcionarios) {
         openModal(modalEditEnterprise);
         modalEditEnterprise.dataset.idx = id;
         const nomeEl = modalEditEnterprise.querySelector("#nome");
-        const funcionariosEl = modalEditEnterprise.querySelector("#funcionarios");
+        const funcionariosEl =
+            modalEditEnterprise.querySelector("#funcionarios");
         nomeEl.value = nome;
         funcionariosEl.value = funcionarios;
     });
@@ -130,11 +152,11 @@ function createConfirmDeleteRow(id) {
     popupButton.classList.add("popup-confirm");
 
     popupButton.addEventListener("click", async () => {
-        console.log("deletar", id);
         if (tableBody.dataset.loading == "true") return;
         tableBody.dataset.loading = true;
         const result = await api("DELETE", { path: `/${id}` });
         if (result.status == 200) {
+            createNotify("Empresa deletada com sucesso!", "success");
             tableBody.querySelector(`tr[data-idx="${id}"]`).remove();
         }
         tableBody.dataset.loading = false;
@@ -187,6 +209,7 @@ function closeModal(event) {
  */
 function openModal(target) {
     currentOpenedModal = target;
+    clearModalErrors(currentOpenedModal);
     target.setAttribute("data-opened", "");
 }
 
@@ -249,6 +272,9 @@ async function modalSubmit(event) {
     });
 
     if (result.status == 201) {
+
+        createNotify("Empresa criada com sucesso!", "success");
+
         const row = createRow(
             result.data.id,
             result.data.nome,
@@ -256,13 +282,12 @@ async function modalSubmit(event) {
         );
         tableBody.appendChild(row);
         clearModalInputs(form.parentNode.parentNode);
-        closeModal()
+        closeModal();
     }
 
     form.setAttribute("data-error", "");
     form.querySelector(".form-error").innerText = result.data.message;
 }
-
 
 /**
  * @param {SubmitEvent} event
@@ -300,7 +325,8 @@ async function modalEditSubmit(event) {
 
     if (!modalEditEnterprise.dataset.idx) {
         form.setAttribute("data-error", "");
-        form.querySelector(".form-error").innerText = "ID da empresa não encontrado.";
+        form.querySelector(".form-error").innerText =
+            "ID da empresa não encontrado.";
         return;
     }
 
@@ -310,15 +336,52 @@ async function modalEditSubmit(event) {
     });
 
     if (result.status == 200) {
-        const existingRow = tableBody.querySelector(`tr[data-idx="${result.data.id}"]`);
-        existingRow.querySelector("td:nth-child(1)").innerText = result.data.nome;
-        existingRow.querySelector("td:nth-child(2)").innerText = result.data.funcionarios;
+
+        createNotify("Empresa editada com sucesso!", "success");
+
+        const existingRow = tableBody.querySelector(
+            `tr[data-idx="${result.data.id}"]`
+        );
+        existingRow.querySelector("td:nth-child(1)").innerText =
+            result.data.nome;
+        existingRow.querySelector("td:nth-child(2)").innerText =
+            result.data.funcionarios;
         clearModalInputs(modalEditEnterprise);
-        closeModal()
+        closeModal();
     }
 
     form.setAttribute("data-error", "");
     form.querySelector(".form-error").innerText = result.data.message;
+}
+
+function createNotify(message, type = "info") {
+    const notify = document.createElement("div");
+    notify.classList.add("card-notify");
+
+    const notifyContent = document.createElement("div");
+    notifyContent.classList.add("card-notify-content");
+    notifyContent.innerText = message;
+
+    const closeButton = document.createElement("span");
+    closeButton.classList.add("close");
+    closeButton.innerHTML = CLOSE_BUTTON_ICON;
+
+    closeButton.addEventListener("click", () => {
+        notify.remove();
+    });
+
+    const loading = document.createElement("div");
+    loading.classList.add("card-notify-loading");
+
+    notifyContent.appendChild(closeButton);
+    notify.appendChild(notifyContent);
+    notify.appendChild(loading);
+
+    setTimeout(() => {
+        notify.remove();
+    }, 5000);
+
+    notifiesContainer.appendChild(notify);
 }
 
 async function main() {

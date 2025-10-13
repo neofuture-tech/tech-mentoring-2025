@@ -150,7 +150,8 @@ input {
     gap: 0.5rem;
 }
 
-.container .table-container .delete-button, .container .table-container .edit-button {
+.container .table-container .delete-button,
+.container .table-container .edit-button {
     position: relative;
     padding: 0.25rem;
     background-color: transparent;
@@ -186,8 +187,7 @@ input {
     display: flex;
 }
 
-.container .table-container .delete-button .popup-delete-row .popup-confirm
-{
+.container .table-container .delete-button .popup-delete-row .popup-confirm {
     width: 100%;
     height: 100%;
     padding: 0.5rem 1rem;
@@ -197,8 +197,11 @@ input {
     box-shadow: unset;
 }
 
-
-.container .table-container .delete-button .popup-delete-row .popup-confirm:hover {
+.container
+    .table-container
+    .delete-button
+    .popup-delete-row
+    .popup-confirm:hover {
     text-decoration: underline;
     background-color: var(--color-red);
     color: white;
@@ -213,7 +216,6 @@ input {
     background-color: white;
     color: var(--color-secondary);
 }
-
 
 /* ======== CONTAINER TABLE HEAD ======== */
 
@@ -460,6 +462,88 @@ body:has(.modal[data-opened]) {
     color: white;
 }
 
+/* ======== NOTIFIES ======== */
+.notifies {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 1rem;
+    z-index: 1000;
+
+    user-select: none;
+}
+
+.card-notify {
+    min-width: 240px;
+    max-width: 320px;
+    background-color: white;
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: slide-in 0.3s ease-out;
+}
+
+.card-notify .close {
+    width: fit-content;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    padding: 0.2rem;
+
+    transition: 0.2s ease-in;
+}
+
+.card-notify .close:hover {
+    background-color: var(--color-button-close);
+    color: white;
+}
+
+.card-notify .close svg {
+    width: 16px;
+    height: 16px;
+}
+
+
+.card-notify .card-notify-content {
+    width: 100%;
+    padding: 1rem;
+    color: var(--color-text);
+    font-size: small;
+    text-align: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.card-notify .card-notify-loading {
+    width: 100%;
+    height: 8px;
+    background: linear-gradient(90deg, var(--color-secondary) 0% 20%, var(--color-primary) 50%, white 50% 100%);
+    background-size: 200% 100%;
+
+    background-position: 100% 0;
+
+    border-radius: 0 0 8px 8px;
+
+    animation: load-bar 5s ease-in forwards;
+}
+
 /* ======== MEDIA QUERIES ======== */
 @media (max-width: 640px) {
     .title {
@@ -486,5 +570,25 @@ body:has(.modal[data-opened]) {
 @keyframes spin {
     to {
         transform: rotate(360deg);
+    }
+}
+
+@keyframes slide-in {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes load-bar {
+    from {
+    background-position: 100% 0;
+    }
+    to {
+        background-position: 0% 0;
     }
 }
