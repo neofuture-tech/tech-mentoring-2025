@@ -1,5 +1,6 @@
 const tableBody = document.querySelector(".container table tbody");
 const modalCreateEnterprise = document.querySelector(".create-enterprise");
+const modalEditEnterprise = document.querySelector(".edit-enterprise");
 
 const DELETE_BUTTON_ICON = `<!-- delete-outline.svg -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-label="Deletar item">
@@ -14,11 +15,11 @@ const DELETE_BUTTON_ICON = `<!-- delete-outline.svg -->
 </svg>
 `;
 
-const CONFIRM_BUTTON_ICON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-label="Confirmar">
-  <title>Confirmar</title>
+const EDIT_BUTTON_ICON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-label="Editar">
+  <title>Editar</title>
   <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="12" cy="12" r="10"/>
-    <path d="M9 12l2 2l4-4"/>
+    <path d="M12 20h9"/>
+    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1l1-4L16.5 3.5z"/>
   </g>
 </svg>`;
 
@@ -65,6 +66,21 @@ function createRow(id, nome, funcionarios) {
     const actionsTableData = document.createElement("td");
 
     actionsTableData.classList.add("actions");
+
+    const editButton = document.createElement("button");
+    editButton.classList.add("edit-button");
+    editButton.type = "button";
+    editButton.innerHTML = EDIT_BUTTON_ICON;
+    actionsTableData.appendChild(editButton);
+
+    editButton.addEventListener("click", () => {
+        openModal(modalEditEnterprise);
+        modalEditEnterprise.dataset.idx = id;
+        const nomeEl = modalEditEnterprise.querySelector("#nome");
+        const funcionariosEl = modalEditEnterprise.querySelector("#funcionarios");
+        nomeEl.value = nome;
+        funcionariosEl.value = funcionarios;
+    });
 
     const deleteButton = document.createElement("button");
     deleteButton.classList.add("delete-button");
@@ -240,7 +256,65 @@ async function modalSubmit(event) {
         );
         tableBody.appendChild(row);
         clearModalInputs(form.parentNode.parentNode);
-        form.parentNode.parentNode.removeAttribute("data-opened");
+        closeModal()
+    }
+
+    form.setAttribute("data-error", "");
+    form.querySelector(".form-error").innerText = result.data.message;
+}
+
+
+/**
+ * @param {SubmitEvent} event
+ */
+async function modalEditSubmit(event) {
+    event.preventDefault();
+    let totalErrors = 0;
+    const form = event.target.parentNode;
+    const nomeEl = form.querySelector("#nome");
+    const funcionariosEl = form.querySelector("#funcionarios");
+    const nome = nomeEl.value;
+    const funcionarios = funcionariosEl.value;
+
+    clearModalErrors(currentOpenedModal);
+
+    if (!nome || nome.trim().length == 0) {
+        nomeEl.parentNode.setAttribute("data-error", "");
+        nomeEl.value = nomeEl.value.trim();
+        totalErrors += 1;
+    }
+
+    if (
+        !funcionarios ||
+        funcionarios.trim().length == 0 ||
+        Number(funcionarios) <= 0
+    ) {
+        funcionariosEl.parentNode.setAttribute("data-error", "");
+        funcionariosEl.value = funcionariosEl.value.trim();
+        totalErrors += 1;
+    }
+
+    if (totalErrors > 0) {
+        return;
+    }
+
+    if (!modalEditEnterprise.dataset.idx) {
+        form.setAttribute("data-error", "");
+        form.querySelector(".form-error").innerText = "ID da empresa não encontrado.";
+        return;
+    }
+
+    const result = await api("PUT", {
+        body: { nome, funcionarios: Number(funcionarios) },
+        path: `/${modalEditEnterprise.dataset.idx}`,
+    });
+
+    if (result.status == 200) {
+        const existingRow = tableBody.querySelector(`tr[data-idx="${result.data.id}"]`);
+        existingRow.querySelector("td:nth-child(1)").innerText = result.data.nome;
+        existingRow.querySelector("td:nth-child(2)").innerText = result.data.funcionarios;
+        clearModalInputs(modalEditEnterprise);
+        closeModal()
     }
 
     form.setAttribute("data-error", "");

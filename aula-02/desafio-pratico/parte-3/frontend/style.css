@@ -150,7 +150,7 @@ input {
     gap: 0.5rem;
 }
 
-.container .table-container .delete-button {
+.container .table-container .delete-button, .container .table-container .edit-button {
     position: relative;
     padding: 0.25rem;
     background-color: transparent;
@@ -207,6 +207,11 @@ input {
 .container .table-container .delete-button:hover {
     background-color: white;
     color: var(--color-red);
+}
+
+.container .table-container .edit-button:hover {
+    background-color: white;
+    color: var(--color-secondary);
 }
 
 
