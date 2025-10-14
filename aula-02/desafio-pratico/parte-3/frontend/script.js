@@ -82,6 +82,11 @@ async function api(method, options = {}) {
  */
 function createRow(id, nome, funcionarios) {
     const tableRow = document.createElement("tr");
+
+    if (!id && !nome && !funcionarios) {
+        return tableRow;
+    }
+
     const nomeTableData = document.createElement("td");
     const funcionariosTableData = document.createElement("td");
     const actionsTableData = document.createElement("td");
