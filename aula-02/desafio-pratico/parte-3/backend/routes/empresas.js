@@ -20,7 +20,7 @@ class Empresa {
      * @returns {boolean}
      */
     isValid() {
-        return this.nome && this.funcionarios;
+        return this.nome && this.funcionarios && this.funcionarios > 0;
     }
 
     /**
@@ -34,6 +34,11 @@ class Empresa {
 
         if (!this.funcionarios) {
             errors["funcionarios"] = "O campo funcionários é obrigatório";
+        }
+
+        if (this.funcionarios <= 0) {
+            errors["funcionarios"] =
+                "O campo funcionários deve ser maior que zero";
         }
 
         return errors;
