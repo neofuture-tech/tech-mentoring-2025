@@ -1,0 +1,594 @@
+/* ======== THEMES AND VARIABLES ======== */
+:root {
+    --font-title: "Fjalla One", sans-serif;
+    --font-body: "Noto Sans", sans-serif;
+
+    --color-red: #ff3c22;
+
+    --color-text: #333;
+    --color-divisor: #d1d1d1;
+
+    --color-primary: #00c3ff;
+    --color-secondary: #2268ff;
+    --color-tertiary: #22ffaa;
+
+    --color-table-hover: #f3f3f3;
+    --color-border-input: #e1e1e1;
+    --color-border-hover: #333;
+
+    --color-error: var(--color-red);
+    --color-error-text: #5c160d;
+    --color-error-soft: #ff3c2257;
+
+    --color-button-close: #a2a2a2;
+    --color-button-close-hover: #d3d3d3;
+}
+
+/* ======== RESET CSS ======== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    font-size: 16px;
+    font-family: var(--font-body);
+    text-rendering: optimizeLegibility;
+}
+
+body {
+    min-height: 100dvh;
+    line-height: 1.5;
+
+    background: linear-gradient(
+        120deg,
+        var(--color-primary) 30%,
+        var(--color-secondary)
+    );
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-title);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: 0.2s;
+}
+
+a:hover {
+    opacity: 0.8;
+}
+
+button,
+input {
+    outline: none;
+    border: none;
+}
+
+/* ======== INDEX ======== */
+
+.title {
+    text-align: center;
+    color: white;
+    padding: 7.5rem 1rem 1rem;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.btn {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+
+    background-color: white;
+
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.12);
+    font-weight: 600;
+
+    transition: 0.15s ease-in;
+}
+
+.btn:hover {
+    opacity: 0.8;
+}
+
+.btn:active {
+    opacity: 1;
+}
+
+.new-enterprise {
+    align-self: flex-end;
+}
+
+/* ======== CONTAINER TABLE ======== */
+
+.container {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+
+    padding: 0 1rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.container table {
+    min-width: 500px;
+    width: 100%;
+    background-color: white;
+    padding: 1.5rem;
+
+    box-shadow: 4px 4px 12px 0 rgba(0, 0, 0, 0.12);
+    border-spacing: 0;
+}
+
+.container .table-container {
+    width: 100%;
+    overflow-x: auto;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.container .table-container .actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.container .table-container .delete-button,
+.container .table-container .edit-button {
+    position: relative;
+    padding: 0.25rem;
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 6px;
+
+    transition: 0.24s ease-in;
+
+    color: var(--color-button-close);
+}
+
+.container .table-container .delete-button .popup-delete-row {
+    display: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: calc(100% + 16px);
+    background-color: white;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.12);
+    background-color: transparent;
+    z-index: 10;
+    text-align: center;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.container .table-container .delete-button .popup-delete-row[data-opened] {
+    display: flex;
+}
+
+.container .table-container .delete-button .popup-delete-row .popup-confirm {
+    width: 100%;
+    height: 100%;
+    padding: 0.5rem 1rem;
+    background-color: white;
+    color: var(--color-red);
+
+    box-shadow: unset;
+}
+
+.container
+    .table-container
+    .delete-button
+    .popup-delete-row
+    .popup-confirm:hover {
+    text-decoration: underline;
+    background-color: var(--color-red);
+    color: white;
+}
+
+.container .table-container .delete-button:hover {
+    background-color: white;
+    color: var(--color-red);
+}
+
+.container .table-container .edit-button:hover {
+    background-color: white;
+    color: var(--color-secondary);
+}
+
+/* ======== CONTAINER TABLE HEAD ======== */
+
+.container thead {
+    overflow-x: auto;
+    background: linear-gradient(
+        120deg,
+        var(--color-primary) 30%,
+        var(--color-secondary)
+    );
+}
+
+.container thead th,
+tbody td {
+    padding: 1rem;
+    color: white;
+    border-spacing: 0;
+    text-align: left;
+}
+
+.container thead th:first-child {
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.container table thead th:nth-child(2)::before {
+    content: "Quantidade ";
+    display: inline;
+}
+
+.container thead th:last-child {
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* ======== CONTAINER TABLE BODY ======== */
+
+.container tbody {
+    overflow-x: auto;
+}
+
+.container tbody td {
+    color: var(--color-text);
+}
+
+.container tbody tr {
+    transition: 0.2s ease-in-out;
+}
+
+.container tbody tr:hover {
+    background-color: var(--color-table-hover);
+}
+
+.container tbody tr:not(:last-child) td {
+    border-bottom: 1px solid var(--color-divisor);
+}
+
+.container tbody tr td:last-child {
+    color: var(--color-secondary);
+    font-weight: 600;
+}
+
+.container tbody[data-loading="true"] tr:not(.loading-row) {
+    display: none;
+}
+
+.container tbody[data-loading="true"] .loading-row {
+    position: relative;
+    height: 120px;
+}
+
+.container tbody[data-loading="true"] .loading-row:hover {
+    background-color: initial;
+}
+
+.container tbody[data-loading="true"] .loading-row::after {
+    --spinner-size: 48px;
+
+    content: "";
+    position: absolute;
+
+    top: calc(50% - var(--spinner-size) / 2);
+    left: calc(50% - var(--spinner-size) / 2);
+    width: var(--spinner-size);
+    height: var(--spinner-size);
+
+    border: 5px solid var(--color-primary);
+    border-top-color: var(--color-secondary);
+    border-radius: 50%;
+
+    animation: spin 1s linear infinite;
+}
+
+.container-footer {
+    color: white;
+    text-align: center;
+    padding-bottom: 3rem;
+}
+
+/* ======== MODAL ======== */
+
+body:has(.modal[data-opened]) {
+    overflow: hidden;
+}
+
+.modal:not([data-opened]) {
+    display: none;
+}
+
+.modal {
+    position: fixed;
+    width: 100%;
+    height: 100dvh;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+.modal-overlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.modal-container {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    padding: 1rem;
+    border-radius: 10px;
+
+    max-width: 460px;
+}
+
+.modal-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.modal-header .close {
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 6px;
+
+    transition: 0.24s ease-in;
+
+    color: var(--color-button-close);
+}
+
+.modal-header .close:hover {
+    background-color: var(--color-button-close);
+    color: white;
+}
+
+.modal-container .title {
+    padding: unset;
+    color: var(--color-text);
+    text-shadow: none;
+}
+
+.modal-container form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 1rem;
+}
+
+.modal-container form:not([data-error]) .form-error {
+    display: none;
+}
+
+.modal-container form .form-error {
+    width: 100%;
+    background-color: var(--color-error-soft);
+    color: var(--color-error-text);
+    padding: 0.5rem 1rem;
+    text-align: center;
+
+    border-radius: 6px;
+}
+
+.modal-container .input-field {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0.5rem;
+}
+
+.modal-container .input-field label {
+    font-size: 1rem;
+}
+
+.modal-container .input-field input {
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    box-shadow: 0 0 0 1px var(--color-border-input);
+    transition: 0.24s;
+}
+
+.modal-container .input-field input:hover,
+.modal-container .input-field input:focus {
+    box-shadow: 0 0 0 1px var(--color-border-hover);
+}
+
+.modal-container .input-field:not([data-error]) .error {
+    display: none;
+}
+
+.modal-container .input-field .error {
+    font-size: 12px;
+    color: var(--color-error);
+}
+
+.modal-container .input-field .error::before {
+    content: "🔻";
+}
+
+.modal-container .modal-submit {
+    width: 100%;
+    background-color: var(--color-secondary);
+    color: white;
+}
+
+/* ======== NOTIFIES ======== */
+.notifies {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 1rem;
+    z-index: 1000;
+
+    user-select: none;
+}
+
+.card-notify {
+    min-width: 240px;
+    max-width: 320px;
+    background-color: white;
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: slide-in 0.3s ease-out;
+}
+
+.card-notify .close {
+    width: fit-content;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    padding: 0.2rem;
+
+    transition: 0.2s ease-in;
+}
+
+.card-notify .close:hover {
+    background-color: var(--color-button-close);
+    color: white;
+}
+
+.card-notify .close svg {
+    width: 16px;
+    height: 16px;
+}
+
+
+.card-notify .card-notify-content {
+    width: 100%;
+    padding: 1rem;
+    color: var(--color-text);
+    font-size: small;
+    text-align: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.card-notify .card-notify-loading {
+    width: 100%;
+    height: 8px;
+    background: linear-gradient(90deg, var(--color-secondary) 0% 20%, var(--color-primary) 50%, white 50% 100%);
+    background-size: 200% 100%;
+
+    background-position: 100% 0;
+
+    border-radius: 0 0 8px 8px;
+
+    animation: load-bar 5s ease-in forwards;
+}
+
+/* ======== MEDIA QUERIES ======== */
+@media (max-width: 640px) {
+    .title {
+        text-align: left;
+        padding-bottom: 1rem;
+    }
+
+    .container table {
+        overflow-x: auto;
+    }
+
+    .container table thead th:nth-child(2)::before {
+        content: "Quant. ";
+        display: inline;
+    }
+
+    .modal-container {
+        max-width: calc(100% - 32px);
+    }
+}
+
+/* ======== ANIMATIONS ======== */
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes slide-in {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes load-bar {
+    from {
+    background-position: 100% 0;
+    }
+    to {
+        background-position: 0% 0;
+    }
+}

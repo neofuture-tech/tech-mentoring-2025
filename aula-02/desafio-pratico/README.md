@@ -50,6 +50,20 @@ parte-1/
 
 ---
 
+### ▶️ Como rodar?
+```sh 
+# Faça um clone do projeto
+git clone https://github.com/damatomos/tech-mentoring-2025.git
+
+# Navegue até a parte-1
+cd ./aula-02/desafio-pratico/part-1
+
+# Abra o arquivo index.html no navegador ou com Live Server usando o VSCode
+```
+
+### 🎯Resultados
+![Resultado Parte 1](imgs/part1_result.png)
+
 ## Parte 2: Backend (API REST)
 
 ### Objetivo
@@ -104,6 +118,24 @@ parte-2/
 
 ---
 
+### ▶️ Como rodar?
+```sh 
+# Faça um clone do projeto
+git clone https://github.com/damatomos/tech-mentoring-2025.git
+
+# Navegue até a parte-2
+cd ./aula-02/desafio-pratico/part-2
+
+# Baixe os pacotes com npm
+npm install
+
+# Execute a aplicação
+npm start
+```
+
+### 🎯Resultados
+![Resultado Parte 2](imgs/part2_result.png)
+
 ## Parte 3: Integração Frontend + Backend
 
 ### Objetivo
@@ -156,6 +188,46 @@ parte-3/
 - [Using the Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)
 
 ---
+
+### ▶️ Como rodar?
+```sh 
+# Faça um clone do projeto
+git clone https://github.com/damatomos/tech-mentoring-2025.git
+
+# Navegue até a parte-3 e vá para backend
+cd ./aula-02/desafio-pratico/part-3/backend
+
+# Baixe os pacotes com npm
+npm install
+
+# Execute a aplicação
+npm start
+
+# Volte para a pasta part-3 e vá para frontend
+cd ./aula-02/desafio-pratico/part-3/frontend
+
+# Abra o arquivo index.html no navegador ou inicialize com o Live Server do VSCode
+```
+---
+
+### 🎯Resultados
+#### Tela inicial
+![Resultado Parte 3 - Loading Items](imgs/part3_loading.png)
+![Resultado Parte 3 - Items](imgs/part3_initial.png)
+
+#### Criar de empresa
+![Resultado Parte 3 - Create](imgs/part3_create.png)
+
+#### Atualizar de empresa
+![Resultado Parte 3 - Update](imgs/part3_update.png)
+
+#### Deletar empresa
+![Resultado Parte 3 - Confirm Delete](imgs/part3_delete_1.png)
+![Resultado Parte 3 - Delete](imgs/part3_delete_2.png)
+
+#### Errors
+![Resultado Parte 3 - Errors](imgs/part3_errors_1.png)
+![Resultado Parte 3 - Errors 2](imgs/part3_errors_2.png)
 
 ## Entrega
 
