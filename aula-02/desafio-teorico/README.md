@@ -101,7 +101,7 @@ Quando uma solicitação de cliente é feita por uma API RESTful, ela transfere 
 
 Exemplo de JSON:
 {
-  "nome": "Celso Kitamura",
+  "nome": "Lucas Albuquerque",
   "idade": 30,
   "cidade": "São Paulo",
   "ativo": true,
