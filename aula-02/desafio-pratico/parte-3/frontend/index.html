@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Empresas</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="titulo">
+        <h1 class="main-title"><i class="fas fa-building"></i> Gerenciador de Empresas</h1>
+        <h4 class="subtitle">Sistema completo de gerenciamento</h4>
+    </header>
+
+    <div class="primeiro">
+        <div class="segundo main-card">
+            <!-- Seção de Nova Empresa -->
+            <div class="form-section">
+                <h2 class="section-title"><i class="fas fa-plus-circle"></i> Nova Empresa</h2>
+                <div class="form-group">
+                    <label for="companyNameInput">Nome da Empresa</label>
+                    <input type="text" id="companyNameInput" placeholder="Digite o nome da empresa">
+                </div>
+                <div class="form-group">
+                    <label for="employeesInput">Quantidade de Funcionários</label>
+                    <input type="number" id="employeesInput" placeholder="Digite a quantidade">
+                </div>
+                <button id="addCompanyBtn" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Adicionar Empresa
+                </button>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Seção de Lista de Empresas -->
+            <div class="list-section">
+                <h2 class="section-title"><i class="fas fa-clipboard-list"></i> Lista de Empresas</h2>
+                <div class="terceiro">
+                    <table class="tabela">
+                        <thead>
+                            <tr>
+                                <th>Nome da Empresa</th>
+                                <th>Funcionários</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="companiesTableBody">
+                            <!-- Empresas serão carregadas aqui via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <h4>Renan Neves - Desafio 02</h4>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

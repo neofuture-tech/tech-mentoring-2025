@@ -1,0 +1,20 @@
+{
+    "name": "neofuturo",
+    "version": "1.0.0",
+    "description": "Sistema de Gerenciamento de Empresas",
+    "license": "ISC",
+    "author": "Renan Neves",
+    "type": "commonjs",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "dev": "nodemon server.js"
+    },
+    "dependencies": {
+        "express": "^4.18.2",
+        "cors": "^2.8.5"
+    },
+    "devDependencies": {
+        "nodemon": "^3.0.1"
+    }
+}
