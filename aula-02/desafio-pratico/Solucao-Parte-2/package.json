@@ -1,0 +1,14 @@
+{
+  "name": "solucao-parte-2",
+  "version": "1.0.0",
+  "description": "API REST - Gerenciador de Empresas (Parte 2)",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.0"
+  }
+}
