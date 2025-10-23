@@ -2,8 +2,12 @@ const express = require("express");
 const fs = require("fs").promises;
 const path = require("path");
 
+console.log('🔄 Inicializando router de empresas...');
+
 const router = express.Router();
 const EMPRESAS_FILE = path.join(__dirname, "../data/empresas.json");
+
+console.log('📁 Caminho do arquivo de dados:', EMPRESAS_FILE);
 
 // Função para ler empresas
 async function getEmpresas() {
@@ -23,10 +27,20 @@ async function saveEmpresas(empresas) {
 // Listar todas as empresas
 router.get("/", async (req, res) => {
   try {
+    console.log('✅ Rota GET /api/empresas executada');
     const empresas = await getEmpresas();
-    res.json(empresas);
+    console.log(`📋 Empresas encontradas: ${empresas.length}`);
+    res.json({
+      success: true,
+      data: empresas,
+      total: empresas.length
+    });
   } catch (error) {
-    res.status(500).json({ error: "Erro interno do servidor" });
+    console.error('❌ Erro ao listar empresas:', error);
+    res.status(500).json({ 
+      success: false,
+      error: "Erro interno do servidor" 
+    });
   }
 });
 
@@ -120,4 +134,5 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+console.log('✅ Router de empresas configurado com 4 rotas');
 module.exports = router;

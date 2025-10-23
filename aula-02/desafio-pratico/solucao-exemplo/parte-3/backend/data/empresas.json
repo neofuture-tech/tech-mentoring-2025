@@ -2,7 +2,7 @@
   {
     "id": "1",
     "nome": "Tech Solutions",
-    "funcionarios": 150
+    "funcionarios": 149
   },
   {
     "id": "2",
@@ -23,5 +23,15 @@
     "id": "5",
     "nome": "Software House",
     "funcionarios": 120
+  },
+  {
+    "id": "1761081213397",
+    "nome": "Tech Hub",
+    "funcionarios": 100
+  },
+  {
+    "id": "1761178997984",
+    "nome": "Avanade",
+    "funcionarios": 300
   }
 ]

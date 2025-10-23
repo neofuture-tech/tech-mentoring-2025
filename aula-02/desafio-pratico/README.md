@@ -162,7 +162,7 @@ parte-3/
 ### O que enviar:
 
 1. Código completo das 3 partes
-2. README com instruções de execução
+2. README com instruções de execução ([Ver README-EXECUCAO.md](./README-EXECUCAO.md))
 3. Screenshots da aplicação funcionando
 
 ### Como organizar:
