@@ -1,0 +1,199 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #0f172a;
+  background: #f7f9fc;
+}
+
+.container {
+  width: min(1000px, 92%);
+  margin: 24px auto;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+header h1 {
+  margin: 0 0 6px;
+  font-size: 1.8rem;
+}
+
+header p {
+  margin: 0;
+  color: #64748b;
+}
+
+
+.empresas-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+}
+
+.empresas-table thead th {
+  text-align: left;
+  padding: 12px 16px;
+  background: linear-gradient(180deg, #f8fbff, #ffffff);
+  border-bottom: 1px solid #e5e7eb;
+  font-weight: 600;
+}
+
+.empresas-table tbody td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.empresas-table tbody tr:hover {
+  background: #f1f9ff;
+}
+
+.numeric {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.actions-col {
+  width: 220px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+
+.status-bar {
+  min-height: 22px;
+  margin: 8px 0 12px;
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+
+.create-form {
+  display: grid;
+  grid-template-columns: 1fr 220px auto;
+  gap: 12px;
+  margin: 12px 0 16px;
+  background: #ffffff;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.04);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label {
+  font-size: 0.95rem;
+  color: #475569;
+}
+
+.field input {
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  outline: none;
+}
+
+.field input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+
+.btn {
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform .04s ease, box-shadow .14s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.08);
+}
+
+.btn.primary {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #fff;
+}
+
+.btn.danger {
+  background: #e11d48;
+  border-color: #e11d48;
+  color: #fff;
+}
+
+.btn.ghost {
+  background: transparent;
+}
+
+
+@media (max-width: 720px) {
+  .create-form {
+    grid-template-columns: 1fr 1fr;
+  }
+  .create-form .btn {
+    grid-column: 1 / -1; 
+  }
+
+  .empresas-table thead {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .empresas-table,
+  .empresas-table tbody,
+  .empresas-table tr,
+  .empresas-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .empresas-table tbody tr {
+    background: #fff;
+    margin: 0 0 12px;
+    border: 1px solid #eef2f7;
+    border-radius: 10px;
+    box-shadow: 0 6px 14px rgba(15, 23, 42, 0.04);
+    padding: 10px 10px 6px;
+  }
+
+  .empresas-table tbody td {
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 6px;
+  }
+
+  .actions {
+    justify-content: flex-end;
+  }
+}
+
+footer {
+  text-align: center;
+  color: #94a3b8;
+  margin-top: 16px;
+  font-size: 0.95rem;
+}
