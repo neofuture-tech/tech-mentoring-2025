@@ -1,0 +1,72 @@
+body { /* seletor que seleciona a tag body do HTML, ou seja tudo dentro do body tem que seguir essas regras */
+    font-family: 'Roboto', sans-serif;              
+    background-color: #f4f7f6;
+    color: #333;
+    margin: 0;                                      /* remove todas as margens padrão que os navegadores costumam aplicar*/
+    padding: 20px;                                  /* espaçamento interno de 20 pixels em todos os lados do body*/   
+    display: flex;                                  /* ativa o modo de display flexbox para o body(o que quer que isso signifique)*/
+    flex-direction: column;                         /* diz ao flexbox para empilhar os elementos filhos do do body verticalmente*/
+    align-items: center;                            /* centraliza o alinhamento (no caso como estamos empilhando verticalmente, centraliza no eixo horizontal) */
+}
+
+header { /* seleciona a tag header*/                                
+    margin-bottom: 20px;                            /* adiciona uma margem inferior de 20 px*/
+    text-align: center;                             /* centraliza o texto */
+}
+
+h1 {
+    color: #2c3e50;                               /* sobreescreve o título h1 com outra cor diferente da do body*/                                                        
+}
+
+/* container da tabela para responsividade */
+.table-container {                                  /* seleciona qualquer elemento que tenha o atributo "table-container" (faz isso com o .) */
+    width: 100%;                                    /*  faz o container ocupar 100% da largura disponível do elemento pai(main)*/
+    max-width: 800px;                               /* largura máxima da tabela(em pc fica fixo, em celulares vai pegando o 100% ali) */
+    overflow-x: auto;                               /* adiciona scroll horizontal em telas pequenas */
+    background-color: #ffffff;  
+    border-radius: 8px;                             /* arredonda os cantos do container em 8 px*/                   
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);     /* adiciona uma sombra sutil ao container. 0 de desvio horizontal, 4px de desvio vertical, 8px de "blur" ou esfumaçado, e a cor é um preto com 10% de opacidade */
+}
+
+
+table { 
+    width: 100%;                                    /* faz a tabela ocupar 100% da largura */
+    border-collapse: collapse;                      /* remove o espaço entre as bordas das células da tabela*/
+}
+
+thead tr { /* seleciona as linhas <tr> que estão dentro de <thead>*/
+    background-color: #3498db;                    /* muda a cor do fundo*/
+    color: #ffffff;
+    text-align: left;                               /* alinha o texto à esquerda*/
+}
+
+th, td { /* aplica a regra a todos os seletores th e td*/
+    padding: 15px;                                  /* espaçamento*/
+    border-bottom: 1px solid #dddddd;             /* adiciona uma borda fina e cinza apenas na parte de baixo (cria as linhas horizontais da tabela)*/
+}
+
+td:last-child { /* pseudo classe que seleciona apenas as células <td> que são o último filho da linha */
+    text-align: right;                              /* joga os para a direita*/
+    font-weight: 700;                               /* muda o peso da fonte tornando a mais visivel (nós importamos lá no html 400, 500 e 700)*/
+}
+
+tbody tr:hover { /* seleciona as linhas da tabela e aplica o hover*/
+    background-color: #f1f1f1;                    /* o cinza claro */
+    cursor: pointer;                                /* muda quando passamos o mouse em cima da tela*/
+}
+
+tbody tr:last-of-type { /* pega o último tr*/
+    border-bottom: 2px solid #3498db;             /* muda a cor da borda de baixo para azul*/
+}
+
+/* Media Query para telas menores*/
+@media (max-width: 600px) { /* diz que a regra só se aplica se a largura for menor que 600 px */
+    th, td {                
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+}

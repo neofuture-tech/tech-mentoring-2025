@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "nome": "Tech Solutions",
+    "funcionarios": 150
+  },
+  {
+    "id": "2",
+    "nome": "Digital Innovations",
+    "funcionarios": 86
+  },
+  {
+    "id": "3",
+    "nome": "Cloud Systems",
+    "funcionarios": 230
+  },
+  {
+    "id": "4",
+    "nome": "Web Dynamics",
+    "funcionarios": 45
+  },
+  {
+    "id": "5",
+    "nome": "Software House",
+    "funcionarios": 120
+  },
+  {
+    "id": "22cbac80-7633-4074-85e9-98a6de89ee6f",
+    "nome": "Empresa insana (Postman)",
+    "funcionarios": 20
+  }
+]

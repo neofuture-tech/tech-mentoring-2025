@@ -1,0 +1,242 @@
+body { /* seletor que seleciona a tag body do HTML, ou seja tudo dentro do body tem que seguir essas regras */
+    font-family: 'Roboto', sans-serif;              
+    background-color: #f4f7f6;
+    color: #333;
+    margin: 0;                                      /* remove todas as margens padrão que os navegadores costumam aplicar*/
+    padding: 20px;                                  /* espaçamento interno de 20 pixels em todos os lados do body*/   
+    display: flex;                                  /* ativa o modo de display flexbox para o body(o que quer que isso signifique)*/
+    flex-direction: column;                         /* diz ao flexbox para empilhar os elementos filhos do do body verticalmente*/
+    align-items: center;                            /* centraliza o alinhamento (no caso como estamos empilhando verticalmente, centraliza no eixo horizontal) */
+}
+
+header { /* seleciona a tag header*/                                
+    margin-bottom: 20px;                            /* adiciona uma margem inferior de 20 px*/
+    text-align: center;                             /* centraliza o texto */
+}
+
+h1 {
+    color: #2c3e50;                               /* sobreescreve o título h1 com outra cor diferente da do body*/                                                        
+}
+
+/* container da tabela para responsividade */
+.table-container {                                  /* seleciona qualquer elemento que tenha o atributo "table-container" (faz isso com o .) */
+    width: 100%;                                    /*  faz o container ocupar 100% da largura disponível do elemento pai(main)*/
+    max-width: 800px;                               /* largura máxima da tabela(em pc fica fixo, em celulares vai pegando o 100% ali) */
+    overflow-x: auto;                               /* adiciona scroll horizontal em telas pequenas */
+    background-color: #ffffff;  
+    border-radius: 8px;                             /* arredonda os cantos do container em 8 px*/                   
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);     /* adiciona uma sombra sutil ao container. 0 de desvio horizontal, 4px de desvio vertical, 8px de "blur" ou esfumaçado, e a cor é um preto com 10% de opacidade */
+}
+
+
+table { 
+    width: 100%;                                    /* faz a tabela ocupar 100% da largura */
+    border-collapse: collapse;                      /* remove o espaço entre as bordas das células da tabela*/
+}
+
+thead tr { /* seleciona as linhas <tr> que estão dentro de <thead>*/
+    background-color: #3498db;                    /* muda a cor do fundo*/
+    color: #ffffff;
+    text-align: left;                               /* alinha o texto à esquerda*/
+}
+
+th, td { /* aplica a regra a todos os seletores th e td*/
+    padding: 15px;                                  /* espaçamento*/
+    border-bottom: 1px solid #dddddd;             /* adiciona uma borda fina e cinza apenas na parte de baixo (cria as linhas horizontais da tabela)*/
+}
+
+td:last-child { /* pseudo classe que seleciona apenas as células <td> que são o último filho da linha */
+    text-align: right;                              /* joga os para a direita*/
+    font-weight: 700;                               /* muda o peso da fonte tornando a mais visivel (nós importamos lá no html 400, 500 e 700)*/
+}
+
+tbody tr:hover { /* seleciona as linhas da tabela e aplica o hover*/
+    background-color: #f1f1f1;                    /* o cinza claro */
+    cursor: pointer;                                /* muda quando passamos o mouse em cima da tela*/
+}
+
+tbody tr:last-of-type { /* pega o último tr*/
+    border-bottom: 2px solid #3498db;             /* muda a cor da borda de baixo para azul*/
+}
+
+/* Media Query para telas menores*/
+@media (max-width: 600px) { /* diz que a regra só se aplica se a largura for menor que 600 px */
+    th, td {                
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+}
+
+.form-container {
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 20px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;                         /* garante que o padding não estoure a largura */
+}
+
+.form-container h2 {
+    text-align: center;             
+    margin-top: 0;
+    color: #333;
+}
+
+#form-adicionar-empresa {
+    display: flex;
+    flex-wrap: wrap;                                /* permite que os itens quebrem a linha em telas pequenas */
+    justify-content: space-between;                 /* distribui os dois grupos do formulário (usado para adicionar a empresa e o x)*/
+    gap: 15px;                                      /* espaço entre os elementos */
+}
+
+.form-group {
+    flex: 1;                                        /* faz os grupos de input(nome da empresa e qtde funcionários) crescerem igualmente */
+    min-width: 200px;                               /* largura mínima antes de quebrar a linha */
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.form-group input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.btn-submit {
+    padding: 12px 20px;
+    background-color: #2ecc71;                    /* cor verde para o adicionar */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    align-self: flex-end;                           /* alinha o botão com a parte de baixo dos inputs */
+    transition: background-color 0.3s ease;         /* anima a mudança da cor de fundo suavemente durante 0.3 segundos */
+}
+
+.btn-submit:hover {
+    background-color: #27ae60;
+}
+
+@media (max-width: 600px) {
+    #form-adicionar-empresa {
+        flex-direction: column;
+    }
+
+    .btn-submit {
+        width: 100%;
+        margin-top: 10px;
+    }
+}
+
+.btn {
+    padding: 6px 12px;
+    border: none;                                   /*tira a borda que costuma ter em botões por padrão*/
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 5px;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.btn-editar {
+    background-color: #3498db;
+    color: white;
+}
+
+.btn-editar:hover {
+    background-color: #2980b9;
+}
+
+
+.btn-deletar {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-deletar:hover {
+    background-color: #c0392b;
+}
+
+td:last-child {
+    text-align: right;                              /* alinha os botões à direita na célula */
+}
+
+
+.modal-overlay {
+    position: fixed;                                /* fica fixo na tela */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;                                  /* para ficar por cima de tudo */
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.modal-header h2 {
+    margin: 0;
+}
+
+.btn-fechar {
+    background: none;
+    border: none;
+    font-size: 28px;
+    font-weight: bold;
+    color: #888;
+    cursor: pointer;
+}
+
+.btn-fechar:hover {
+    color: #333;
+}
+
+.modal-footer {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.btn-salvar {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 15px;
+}
+
+.btn-salvar:hover {
+    background-color: #2980b9;
+}
