@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gerenciador de Empresas</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>🏢 Gerenciador de Empresas</h1>
+        <p>Lista de empresas e seus funcionários</p>
+      </header>
+
+      <main>
+        
+        <div class="status-bar" role="status" aria-live="polite" id="status"></div>
+
+       
+        <form id="create-form" class="create-form">
+          <div class="field">
+            <label for="nome">Nome da Empresa</label>
+            <input id="nome" name="nome" type="text" placeholder="Ex.: Nova Empresa" required />
+          </div>
+          <div class="field">
+            <label for="funcionarios">Quantidade de Funcionários</label>
+            <input id="funcionarios" name="funcionarios" type="number" min="0" step="1" required />
+          </div>
+          <button type="submit" class="btn primary">Criar</button>
+        </form>
+
+        <table class="empresas-table">
+          <thead>
+            <tr>
+              <th>Nome da Empresa</th>
+              <th>Quantidade de Funcionários</th>
+              <th class="actions-col">Ações</th> 
+            </tr>
+          </thead>
+          <tbody id="tbody">
+           
+            <tr>
+              <td>Tech Solutions</td>
+              <td class="numeric">150</td>
+              <td class="actions">
+                <button class="btn ghost edit" data-static>Editar</button>
+                <button class="btn danger delete" data-static>Deletar</button>
+              </td>
+            </tr>
+            <tr> 
+              <td>Digital Innovations</td>
+              <td class="numeric">87</td>
+              <td class="actions">
+                <button class="btn ghost edit" data-static>Editar</button>
+                <button class="btn danger delete" data-static>Deletar</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Cloud Systems</td>
+              <td class="numeric">230</td>
+              <td class="actions">
+                <button class="btn ghost edit" data-static>Editar</button>
+                <button class="btn danger delete" data-static>Deletar</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Web Dynamics</td>
+              <td class="numeric">45</td>
+              <td class="actions">
+                <button class="btn ghost edit" data-static>Editar</button>
+                <button class="btn danger delete" data-static>Deletar</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Software House</td>
+              <td class="numeric">120</td>
+              <td class="actions">
+                <button class="btn ghost edit" data-static>Editar</button>
+                <button class="btn danger delete" data-static>Deletar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <template id="row-template">
+          <tr>
+            <td data-col="nome"></td>
+            <td data-col="funcionarios" class="numeric"></td>
+            <td class="actions">
+              <button class="btn ghost edit">Editar</button>
+              <button class="btn danger delete">Deletar</button>
+            </td>
+          </tr>
+        </template>
+      </main>
+
+      <footer>
+        <p>Desafio Prático - Aula 02</p>
+      </footer>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
